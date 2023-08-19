@@ -2,9 +2,11 @@ from node
 
 workdir /usr/app
 
-copy package.json ./
+copy . .
 
 run npm install
+
+run npm run build
 
 copy . .
 

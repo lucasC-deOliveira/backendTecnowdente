@@ -8,8 +8,8 @@ const AppDataSource = new DataSource({
   username: String(process.env.DATABASE_USER),
   password: String(process.env.DATABASE_PASSWORD),
   database: String(process.env.DATABASE_DATABASE),
-  migrations: ["./dist/database/migrations/*.ts"],
-  entities: ["./dist/modules/**/entities/*.ts"],
+  migrations: ["src/database/migrations/*.ts"],
+  entities: ["src/modules/**/entities/*.ts"],
   logging: true,
 })
 
