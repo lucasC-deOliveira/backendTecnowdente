@@ -2,7 +2,7 @@ import { getRepository, Repository } from "typeorm";
 import { ServiceDTO } from "../../dtos/ServiceDTO";
 import { Service } from "../../entities/service";
 import { IServicesRepository } from "../IServicesRepository";
-
+import AppDataSource from "../../../../database"
 
 
 class ServicesRepository implements IServicesRepository {
@@ -10,10 +10,10 @@ class ServicesRepository implements IServicesRepository {
   private repository: Repository<Service>
 
   constructor() {
-    this.repository = getRepository(Service);
+    this.repository = AppDataSource.getRepository(Service);
   }
   async findById(id: string): Promise<Service> {
-    return await this.repository.findOne(id)
+    return await this.repository.findOneBy({ id })
   }
   async findByIds(ids: string[]): Promise<Service[]> {
     const services = await this.repository.findByIds(ids)
@@ -27,7 +27,7 @@ class ServicesRepository implements IServicesRepository {
     return service;
   }
   async listByName(name: string): Promise<Service> {
-    const service = await this.repository.findOne({ name });
+    const service = await this.repository.findOneBy({ name });
     return service;
   }
   async listAll(): Promise<Service[]> {
@@ -37,7 +37,7 @@ class ServicesRepository implements IServicesRepository {
 
   }
   async remove(id: string): Promise<void> {
-    const service = await this.repository.findOne(id)
+    const service = await this.repository.findOneBy({ id })
     await this.repository.remove(service)
   }
   async change(id: string, service: ServiceDTO): Promise<Service> {

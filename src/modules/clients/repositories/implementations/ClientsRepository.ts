@@ -1,7 +1,9 @@
-import { getRepository, Repository } from "typeorm";
+import { Repository } from "typeorm";
 import { ClientDTO } from "../../dtos/ClientDTO";
 import { Client } from "../../entities/Client";
 import { IClientsRepository } from "../IClientsRepository";
+import AppDataSource from "../../../../database"
+
 
 
 
@@ -10,7 +12,7 @@ class ClientsRepository implements IClientsRepository {
     private repository: Repository<Client>
 
     constructor() {
-        this.repository = getRepository(Client);
+        this.repository = AppDataSource.getRepository(Client);
     }
 
 
@@ -21,14 +23,14 @@ class ClientsRepository implements IClientsRepository {
     }
 
     async findByCnpj(cnpj: string): Promise<Client> {
-        const client = await this.repository.findOne({ cnpj })
+        const client = await this.repository.findOneBy({ cnpj })
 
         return client
     }
 
 
     async findById(id: string): Promise<Client> {
-        const client = await this.repository.findOne({ id })
+        const client = await this.repository.findOneBy({ id })
 
         return client
     }
@@ -43,7 +45,7 @@ class ClientsRepository implements IClientsRepository {
 
 
     async remove(id: string): Promise<void> {
-        const client = await this.repository.findOne(id)
+        const client = await this.repository.findOneBy({ id })
 
         await this.repository.remove(client)
     }
@@ -51,7 +53,7 @@ class ClientsRepository implements IClientsRepository {
 
     async change(id: string, { name, cnpj }: ClientDTO): Promise<void> {
 
-        await this.repository.update(id,{name,cnpj})
+        await this.repository.update(id, { name, cnpj })
     }
 
 

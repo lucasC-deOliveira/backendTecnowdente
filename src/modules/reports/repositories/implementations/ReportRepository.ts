@@ -1,8 +1,9 @@
-import { Between, getRepository, In, Repository, SelectQueryBuilder } from "typeorm";
+import { Between, In, Repository } from "typeorm";
 import { Demand } from "../../../demand/entities/Demand";
-import { Service } from "../../../services/entities/service";
 import { ICreateReportDTO } from "../../dtos/create";
 import { Reports } from "../../entities/report";
+import AppDataSource  from "../../../../database"
+
 
 
 class ReportRepository implements ReportRepository {
@@ -12,8 +13,8 @@ class ReportRepository implements ReportRepository {
   private demand_repository: Repository<Demand>
 
   constructor() {
-    this.repository = getRepository(Reports);
-    this.demand_repository = getRepository(Demand);
+    this.repository = AppDataSource.getRepository(Reports);
+    this.demand_repository = AppDataSource.getRepository(Demand);
   }
 
   async create({ to, from, client_id }: ICreateReportDTO): Promise<void> {
@@ -65,25 +66,11 @@ class ReportRepository implements ReportRepository {
 
       return report
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
     return null
-
   }
 
   async markAsFinished(id: string): Promise<void> {
-    const report = await this.repository.findOne({ id })
+    const report = await this.repository.findOneBy({ id })
 
     if (report?.id) {
       const manager = this.repository.manager
@@ -98,7 +85,7 @@ class ReportRepository implements ReportRepository {
   }
 
   async delete(id: string): Promise<void> {
-    const report = await this.repository.findOne({ id })
+    const report = await this.repository.findOneBy({ id })
 
     if (report) {
       const manager = this.repository.manager

@@ -1,4 +1,5 @@
-import { getRepository, Repository } from "typeorm";
+import { Repository } from "typeorm";
+import AppDataSource from "../../../../database"
 import { Demand } from "../../entities/Demand";
 import { ICreateDemandsDTO, IDemandsRepository, IListDemandsDTO } from "../IDemandsRepository";
 
@@ -7,7 +8,7 @@ class DemandsRepository implements IDemandsRepository {
     private repository: Repository<Demand>
 
     constructor() {
-        this.repository = getRepository(Demand);
+        this.repository = AppDataSource.getRepository(Demand);
     }
 
     async create({ client_id, patient, services, type, deadline, state, amount }: ICreateDemandsDTO): Promise<void> {
@@ -59,14 +60,14 @@ class DemandsRepository implements IDemandsRepository {
     }
 
     async findById(id: string): Promise<Demand> {
-        const demand = await this.repository.findOne({ where:{id}, relations:["services","client"] });
+        const demand = await this.repository.findOne({ where: { id }, relations: ["services", "client"] });
 
         return demand
     }
 
     async remove(id: string): Promise<void> {
 
-        const demand = await this.repository.findOne({ id })
+        const demand = await this.repository.findOneBy({ id })
 
         await this.repository.remove(demand)
 
@@ -74,7 +75,7 @@ class DemandsRepository implements IDemandsRepository {
 
     async change(id: string, { client_id, patient, services, type, deadline, state, amount }: ICreateDemandsDTO): Promise<void> {
 
-        const demand = await this.repository.findOne({ id })
+        const demand = await this.repository.findOneBy({ id })
 
         await this.remove(id)
 

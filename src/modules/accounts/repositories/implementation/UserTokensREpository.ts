@@ -2,6 +2,7 @@ import { getRepository, Repository } from "typeorm";
 import { ICreateUserTokens } from "../../dtos/ICreateUserTokensDTO";
 import { UserTokens } from "../../entities/userTokens";
 import { IUsersTokensRepository } from "../IUserTokenRepository";
+import AppDataSource from "../../../../database"
 
 
 
@@ -13,7 +14,7 @@ class UsersTokensRepository implements IUsersTokensRepository {
 
 
   constructor() {
-    this.repository = getRepository(UserTokens)
+    this.repository = AppDataSource.getRepository(UserTokens)
   }
 
 
@@ -33,7 +34,7 @@ class UsersTokensRepository implements IUsersTokensRepository {
 
 
   async findByUserIdAndRefreshToken(user_id: string, refresh_token: string): Promise<UserTokens> {
-    const userTokens = await this.repository.findOne({
+    const userTokens = await this.repository.findOneBy({
       user_id,
       refresh_token
     })
@@ -47,7 +48,7 @@ class UsersTokensRepository implements IUsersTokensRepository {
 
 
   async findByRefreshToken(refresh_token: string): Promise<UserTokens> {
-    const userToken = await this.repository.findOne({ refresh_token })
+    const userToken = await this.repository.findOneBy({ refresh_token })
     return userToken
   }
 
