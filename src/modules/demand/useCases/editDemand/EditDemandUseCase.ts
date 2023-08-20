@@ -10,7 +10,8 @@ interface IRequest {
   type: string,
   deadline: string,
   state: string,
-  amount: string
+  amount: string,
+  observations?: string
 }
 
 
@@ -25,7 +26,7 @@ class EditDemandUseCase {
   ) { }
 
 
-  async execute({ id, client_id, patient, services, type, deadline, state, amount }: IRequest): Promise<void> {
+  async execute({ id, client_id, patient, services, type, deadline, state, amount, observations }: IRequest): Promise<void> {
 
     const servicesFromDatabase = await this.servicesRepository.findByIds(services)
 
@@ -38,7 +39,8 @@ class EditDemandUseCase {
       type,
       deadline: parsedDeadLine,
       state,
-      amount: Number(amount)
+      amount: Number(amount),
+      observations
     })
 
   }

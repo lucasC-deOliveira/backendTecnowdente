@@ -39,6 +39,9 @@ class Demand {
     @Column()
     amount: number;
 
+    @Column()
+    observations?: string
+
     @CreateDateColumn()
     receivement: Date;
 

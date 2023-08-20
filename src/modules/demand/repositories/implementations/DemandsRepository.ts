@@ -11,7 +11,7 @@ class DemandsRepository implements IDemandsRepository {
         this.repository = AppDataSource.getRepository(Demand);
     }
 
-    async create({ client_id, patient, services, type, deadline, state, amount }: ICreateDemandsDTO): Promise<void> {
+    async create({ client_id, patient, services, type, deadline, state, amount, observations }: ICreateDemandsDTO): Promise<void> {
 
         const demand = this.repository.create({
             client_id,
@@ -20,9 +20,9 @@ class DemandsRepository implements IDemandsRepository {
             type,
             deadline,
             state,
-            amount
+            amount,
+            observations
         })
-
 
         await this.repository.save(demand)
     }
@@ -73,7 +73,7 @@ class DemandsRepository implements IDemandsRepository {
 
     }
 
-    async change(id: string, { client_id, patient, services, type, deadline, state, amount }: ICreateDemandsDTO): Promise<void> {
+    async change(id: string, { client_id, patient, services, type, deadline, state, amount, observations }: ICreateDemandsDTO): Promise<void> {
 
         const demand = await this.repository.findOneBy({ id })
 
@@ -88,6 +88,7 @@ class DemandsRepository implements IDemandsRepository {
             deadline,
             state,
             amount,
+            observations,
             receivement: demand.receivement
         })
 

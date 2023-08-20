@@ -10,6 +10,7 @@ interface ICreateDemandsDTO {
     deadline: Date;
     amount: number;
     state: string;
+    observations?: string
 
 }
 
@@ -19,11 +20,11 @@ export interface IListDemandsDTO {
 }
 
 interface IDemandsRepository {
-    create({ client_id, patient, services, type, deadline, state, amount }: ICreateDemandsDTO): Promise<void>
+    create({ client_id, patient, services, type, deadline, state, amount, observations }: ICreateDemandsDTO): Promise<void>
     remove(id: string): Promise<void>
     findById(id: string): Promise<Demand>
     list(page: number): Promise<IListDemandsDTO>;
-    change(id: string, { client_id, patient, services, type, deadline, state, amount }: ICreateDemandsDTO): Promise<void>
+    change(id: string, { client_id, patient, services, type, deadline, state, amount, observations }: ICreateDemandsDTO): Promise<void>
     report(client_name: string): Promise<Demand[]>
 }
 
