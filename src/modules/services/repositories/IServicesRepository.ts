@@ -4,7 +4,7 @@ import { Service } from "../entities/service";
 
 
 interface IServicesRepository {
-  create({ name, amount }: ServiceDTO): Promise<Service>
+  create(service: ServiceDTO): Promise<Service>
   listByName(name: string): Promise<Service>
   listAll(): Promise<Service[]>
   remove(id: string): Promise<void>

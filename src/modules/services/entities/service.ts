@@ -13,6 +13,9 @@ class Service{
   @Column()
   amount:number;
 
+  @Column()
+  cost:number;
+
   constructor(){
     if(!this.id){
       this.id = uuid()

@@ -10,4 +10,4 @@ run npm run build
 
 expose 3333
 
-cmd ["npm","run","start"]
+cmd ["npm","run","dev"]

@@ -12,7 +12,7 @@ class CreateServiceUseCase{
     private serviceRepository: IServicesRepository
   ){}
 
-  async execute({name,amount}:ServiceDTO):Promise<Service>{
+  async execute({name,amount, cost}:ServiceDTO):Promise<Service>{
 
     const serviceExists = await this.serviceRepository.listByName(name)
 
@@ -23,7 +23,8 @@ class CreateServiceUseCase{
 
     const service = await this.serviceRepository.create({
       name,
-      amount
+      amount,
+      cost
     })
 
     return service

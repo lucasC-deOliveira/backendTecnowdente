@@ -21,8 +21,8 @@ class ServicesRepository implements IServicesRepository {
     return services;
   }
 
-  async create({ name, amount }: ServiceDTO): Promise<Service> {
-    const service = this.repository.create({ name, amount });
+  async create({ name, amount, cost }: ServiceDTO): Promise<Service> {
+    const service = this.repository.create({ name, amount, cost });
     await this.repository.save(service);
     return service;
   }
