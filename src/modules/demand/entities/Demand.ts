@@ -1,62 +1,69 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
 import { v4 as uuidv4 } from "uuid"
 import { Client } from "../../clients/entities/Client";
 import { Reports } from "../../reports/entities/report";
+import { DemandServiceDetails } from "./DemandServiceDetails";
 import { Service } from "../../services/entities/service";
 
 @Entity("Demands")
 class Demand {
-    @PrimaryColumn()
-    id?: string;
+  @PrimaryColumn()
+  id?: string;
 
-    @ManyToOne(() => Client)
-    @JoinColumn({ name: 'client_id' })
-    client: Client;
+  @ManyToOne(() => Client)
+  @JoinColumn({ name: 'client_id' })
+  client: Client;
 
-    @Column()
-    client_id: string;
+  @Column()
+  client_id: string;
 
-    @Column()
-    patient: string;
+  @Column()
+  patient: string;
 
-    @ManyToMany(() => Service)
-    @JoinTable({
-        name: "services_demands",
-        joinColumns: [{ name: "demand_id" }],
-        inverseJoinColumns: [{ name: "service_id" }]
-    })
-    services: Service[];
+  @ManyToMany(() => Service)
+  @JoinTable({
+    name: "DemandServiceDetails",
+    joinColumns: [{ name: "demand_id" }],
+    inverseJoinColumns: [{ name: "service_id" }]
+  })
+  services: Service[];
 
-    @Column()
-    type: string;
+  @OneToMany(() => DemandServiceDetails, demandServiceDetails => demandServiceDetails.demand)
+  servicesDetails: DemandServiceDetails[]
 
-    @CreateDateColumn()
-    deadline: Date;
+  @Column()
+  type: string;
 
-    @Column()
-    state: string;
+  @CreateDateColumn()
+  deadline: Date;
 
-    @Column()
-    amount: number;
+  @Column()
+  state: string;
 
-    @Column()
-    observations?: string
+  @Column()
+  amount: number;
 
-    @CreateDateColumn()
-    receivement: Date;
+  @Column()
+  cost: number;
 
-    @ManyToOne(() => Reports, (report => report.demands))
-    @JoinColumn({ name: 'report_id' })
-    report?: Reports;
+  @Column()
+  observations?: string
 
-    @Column()
-    report_id?: string;
+  @CreateDateColumn()
+  receivement: Date;
 
-    constructor() {
-        if (!this.id) {
-            this.id = uuidv4()
-        }
+  @ManyToOne(() => Reports, (report => report.demands))
+  @JoinColumn({ name: 'report_id' })
+  report?: Reports;
+
+  @Column()
+  report_id?: string;
+
+  constructor() {
+    if (!this.id) {
+      this.id = uuidv4()
     }
+  }
 }
 
 

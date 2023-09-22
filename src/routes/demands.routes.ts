@@ -7,6 +7,7 @@ import { ListDemandsController } from '../modules/demand/useCases/ListDemands/Li
 import { RemoveDemandController } from '../modules/demand/useCases/removeDemand/RemoveDemandController';
 import { ensureAuthenticated } from '../shared/http/middlewares/EnsureAuthenticated';
 import { GetDemandByIdController } from '../modules/demand/useCases/getDemandById/GetDemandByIdController';
+import { ShowDashboardController } from '../modules/demand/useCases/showDashBoard/showDashboardController';
 
 const demandsRoutes = Router();
 
@@ -30,5 +31,8 @@ demandsRoutes.post("/services/:id", ensureAuthenticated, createDemandServiceCont
 
 const generateReportController = new GenerateReportController()
 demandsRoutes.post("/report", ensureAuthenticated, generateReportController.handle)
+
+const showDashboardController = new ShowDashboardController()
+demandsRoutes.get("/dashboard/show", ensureAuthenticated, showDashboardController.handle)
 
 export { demandsRoutes }

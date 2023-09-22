@@ -1,27 +1,31 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
-import {v4 as uuid} from 'uuid'
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import { v4 as uuid } from 'uuid'
+import { DemandServiceDetails } from '../../demand/entities/DemandServiceDetails';
 
 @Entity('services')
-class Service{
+class Service {
 
   @PrimaryColumn()
-  id?:string;
-  
-  @Column()
-  name:string;
+  id?: string;
 
   @Column()
-  amount:number;
+  name: string;
 
   @Column()
-  cost:number;
+  amount: number;
 
-  constructor(){
-    if(!this.id){
+  @Column()
+  cost: number;
+
+  @OneToMany(() => DemandServiceDetails, demandServiceDetails => demandServiceDetails.service_id)
+  demandsDetails: DemandServiceDetails[]
+
+  constructor() {
+    if (!this.id) {
       this.id = uuid()
     }
   }
 
 }
 
-export {Service}
+export { Service }

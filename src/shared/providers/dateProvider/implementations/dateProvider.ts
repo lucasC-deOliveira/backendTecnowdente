@@ -6,6 +6,12 @@ dayjs.extend(utc)
 
 
 class DayjsDateProvider implements IDateProvider {
+  addMonth(date: Date): Date {
+    return dayjs(date).add(1, "M").toDate()
+  }
+  startOfMonth(): Date {
+    return dayjs().startOf("M").toDate()
+  }
 
   dateNow(): Date {
     return dayjs().toDate()

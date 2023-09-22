@@ -1,4 +1,4 @@
-import { getRepository, Repository } from "typeorm";
+import { getRepository, In, Repository } from "typeorm";
 import { ServiceDTO } from "../../dtos/ServiceDTO";
 import { Service } from "../../entities/service";
 import { IServicesRepository } from "../IServicesRepository";
@@ -16,7 +16,7 @@ class ServicesRepository implements IServicesRepository {
     return await this.repository.findOneBy({ id })
   }
   async findByIds(ids: string[]): Promise<Service[]> {
-    const services = await this.repository.findByIds(ids)
+    const services = await this.repository.findBy({id: In(ids)})
 
     return services;
   }
