@@ -50,7 +50,7 @@ class EditDemandUseCase {
       const quantity = services.find(selectedService => selectedService.id === service.id).quantity
       return acc + (Number(service.cost) * Number(quantity))
     }, 0)
-    console.log("Chegou")
+
     await this.demandRepository.change(id, {
       client_id,
       patient,
@@ -62,7 +62,6 @@ class EditDemandUseCase {
       observations,
       cost,
     })
-    console.log('passou 2')
   }
 
 

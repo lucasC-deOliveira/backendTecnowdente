@@ -113,7 +113,6 @@ class DemandsRepository implements IDemandsRepository {
             }))
 
             await transactionalEntityManager.save(Demand, newDemand)
-            console.log("ate aqui")
 
             await transactionalEntityManager.save(DemandServiceDetails, servicesDetails)
         })
