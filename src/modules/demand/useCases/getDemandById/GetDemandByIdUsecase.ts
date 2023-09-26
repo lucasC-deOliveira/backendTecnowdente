@@ -14,8 +14,29 @@ export class GetDemandByIdUseCase {
       throw new AppError("você deve informar o id")
     }
 
-    const demanda = await this.demandsRepository.findById(id)
+    const demand = await this.demandsRepository.findById(id)
 
-    return demanda
+    const parsedDemands = {
+      id: demand.id,
+      patient: demand.patient,
+      type: demand.type,
+      deadline: demand.deadline,
+      state: demand.state,
+      amount: demand.amount,
+      cost: demand.cost,
+      observations: demand.observations,
+      receivement: demand.receivement,
+      client: demand.client,
+      services: demand.services.map(service => {
+        const serviceDetails = demand.servicesDetails.find(detail => detail.service_id === service.id)
+
+        return {
+          ...service,
+          quantity: serviceDetails.quantity
+        }
+      })
+
+    }
+    return parsedDemands
   }
 }

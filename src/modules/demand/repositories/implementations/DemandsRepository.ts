@@ -21,7 +21,7 @@ class DemandsRepository implements IDemandsRepository {
 
         await manager.transaction(async (transactionalEntityManager) => {
 
-            const demand = transactionalEntityManager.create(Demand,{
+            const demand = transactionalEntityManager.create(Demand, {
                 amount,
                 client_id,
                 deadline,
@@ -34,15 +34,15 @@ class DemandsRepository implements IDemandsRepository {
             })
 
             const servicesDetails = services.map(service => this.demandServiceDetailsRepository.create({
-               demand_id: demand.id,
-               service_id:service.id,
-               quantity: service.quantity
+                demand_id: demand.id,
+                service_id: service.id,
+                quantity: service.quantity
             }))
 
 
-            await manager.save(Demand, demand)
+            await transactionalEntityManager.save(Demand, demand)
 
-            await manager.save(DemandServiceDetails, servicesDetails)
+            await transactionalEntityManager.save(DemandServiceDetails, servicesDetails)
         })
 
 
@@ -58,7 +58,7 @@ class DemandsRepository implements IDemandsRepository {
 
         const offset = (limit * page) - limit
 
-        const demands = await this.repository.find({ relations: ['client','services', 'servicesDetails'], skip: offset > 1 ? offset : 0, take: limit })
+        const demands = await this.repository.find({ relations: ['client', 'services', 'servicesDetails'], skip: offset > 1 ? offset : 0, take: limit })
 
         const totalItens = await this.repository.count()
 
@@ -69,7 +69,7 @@ class DemandsRepository implements IDemandsRepository {
     }
 
     async findById(id: string): Promise<Demand> {
-        const demand = await this.repository.findOne({ where: { id }, relations: [ "client"] });
+        const demand = await this.repository.findOne({ where: { id }, relations: ["client", 'services', 'servicesDetails'] });
 
         return demand
     }
@@ -82,24 +82,41 @@ class DemandsRepository implements IDemandsRepository {
 
     }
 
-    async change(id: string, { client_id, patient, services, type, deadline, state, amount, observations }: ICreateDemandsDTO): Promise<void> {
+    async change(id: string, { client_id, patient, services, type, deadline, state, observations, amount, cost }: ICreateDemandsDTO): Promise<void> {
+        const manager = this.repository.manager
 
-        const demand = await this.repository.findOneBy({ id })
 
-        await this.remove(id)
+        await manager.transaction(async (transactionalEntityManager) => {
+            const demand = await transactionalEntityManager.findOneBy(Demand, { id })
+            await transactionalEntityManager.delete(Demand, { id })
 
-        // const newDemand = this.repository.create({
-        //     id: id,
-        //     client_id,
-        //     patient,
-        //     services,
-        //     type,
-        //     deadline,
-        //     state,
-        //     amount,
-        //     observations,
-        //     receivement: demand.receivement
-        // })
+            await transactionalEntityManager.delete(DemandServiceDetails, { demand_id: id, })
+
+            const newDemand = transactionalEntityManager.create(Demand, {
+                id: id,
+                amount,
+                client_id,
+                deadline,
+                observations,
+                state,
+                patient,
+                cost,
+                type,
+                receivement: demand.receivement
+            })
+
+
+            const servicesDetails = services.map(service => this.demandServiceDetailsRepository.create({
+                demand_id: demand.id,
+                service_id: service.id,
+                quantity: service.quantity
+            }))
+
+            await transactionalEntityManager.save(Demand, newDemand)
+            console.log("ate aqui")
+
+            await transactionalEntityManager.save(DemandServiceDetails, servicesDetails)
+        })
 
 
         // await this.repository.save(newDemand)

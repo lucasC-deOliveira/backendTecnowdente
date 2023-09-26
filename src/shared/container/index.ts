@@ -1,6 +1,5 @@
 import { container } from "tsyringe";
 import { UsersRepository } from "../../modules/accounts/repositories/implementation/UserRepository";
-import { UsersTokensRepository } from "../../modules/accounts/repositories/implementation/UserTokensREpository";
 import { IUserRepository } from "../../modules/accounts/repositories/IUserRepository";
 import { IUsersTokensRepository } from "../../modules/accounts/repositories/IUserTokenRepository";
 import { IClientsRepository } from "../../modules/clients/repositories/IClientsRepository";
@@ -13,6 +12,7 @@ import { ServicesRepository } from "../../modules/services/repositories/implemen
 import { IServicesRepository } from "../../modules/services/repositories/IServicesRepository";
 import { IDateProvider } from "../providers/dateProvider/IDateProvider";
 import { DayjsDateProvider } from "../providers/dateProvider/implementations/dateProvider";
+import { UsersTokensRepository } from "../../modules/accounts/repositories/implementation/UserTokensRepository";
 
 
 container.registerSingleton<IDemandsRepository>("DemandsRepository", DemandsRepository)
