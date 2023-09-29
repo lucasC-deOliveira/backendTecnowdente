@@ -64,6 +64,7 @@ class AuthenticateUserUseCase {
       expiresIn: expires_in_refresh_token
     })
 
+    await this.usersTokensRepository.deleteByUserId(user.id)
 
     const refresh_token_expires_date = this.dayjsDateProvider.addDays(expires_refresh_token_days)
 
