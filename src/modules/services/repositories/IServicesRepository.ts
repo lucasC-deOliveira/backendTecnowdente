@@ -8,7 +8,7 @@ interface IServicesRepository {
   listByName(name: string): Promise<Service>
   listAll(): Promise<Service[]>
   remove(id: string): Promise<void>
-  change(id: string, service: ServiceDTO): Promise<Service>
+  change(id: string, service: ServiceDTO): Promise<void>
   findByIds(ids: string[]): Promise<Service[]>
   findById(id: string): Promise<Service>
 }

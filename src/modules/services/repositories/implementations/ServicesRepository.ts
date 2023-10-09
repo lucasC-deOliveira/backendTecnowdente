@@ -16,7 +16,7 @@ class ServicesRepository implements IServicesRepository {
     return await this.repository.findOneBy({ id })
   }
   async findByIds(ids: string[]): Promise<Service[]> {
-    const services = await this.repository.findBy({id: In(ids)})
+    const services = await this.repository.findBy({ id: In(ids) })
 
     return services;
   }
@@ -31,24 +31,17 @@ class ServicesRepository implements IServicesRepository {
     return service;
   }
   async listAll(): Promise<Service[]> {
-    const all = await this.repository.find()
+    const all = await this.repository.find({ where: { active: true } })
     return all
 
 
   }
   async remove(id: string): Promise<void> {
-    const service = await this.repository.findOneBy({ id })
-    await this.repository.remove(service)
+    await this.repository.update(id, { active: false })
   }
-  async change(id: string, service: ServiceDTO): Promise<Service> {
-    await this.remove(id)
 
-    Object.assign(service, {
-      id: id
-    })
-
-    const editedService = this.create(service)
-    return editedService
+  async change(id: string, service: ServiceDTO): Promise<void> {
+    await this.repository.update(id, { ...service })
   }
 
 }

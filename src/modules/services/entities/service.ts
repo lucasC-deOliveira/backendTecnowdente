@@ -17,6 +17,9 @@ class Service {
   @Column()
   cost: number;
 
+  @Column()
+  active?: boolean;
+
   @OneToMany(() => DemandServiceDetails, demandServiceDetails => demandServiceDetails.service_id)
   demandsDetails: DemandServiceDetails[]
 
