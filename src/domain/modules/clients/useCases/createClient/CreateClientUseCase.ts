@@ -12,12 +12,12 @@ class CreateClientUseCase extends BaseService {
     super();
   }
 
-  async Execute({ name, cnpj }: CreateClientUseCaseInput): Promise<void> {
+  async execute({ name, cnpj }: CreateClientUseCaseInput): Promise<void> {
     const client = {
       name,
       cnpj,
     };
-
+    console.log('chegou');
     const clientExists = await this.findClientByCnpjRepository.run(cnpj);
 
     if (clientExists) {

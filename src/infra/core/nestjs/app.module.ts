@@ -6,6 +6,7 @@ import { DemandModule } from './modules/demand/demand.module';
 import { ServiceModule } from './modules/service/service.module';
 import { AccountModule } from './modules/account/account.module';
 import { AuthMiddleware } from 'src/infra/middleware/EnsureAuthenticated';
+import { ClientModule } from './modules/client/client.module';
 
 @Module({
   imports: [
@@ -17,12 +18,13 @@ import { AuthMiddleware } from 'src/infra/middleware/EnsureAuthenticated';
     DemandModule,
     ServiceModule,
     AccountModule,
+    ClientModule,
   ],
   controllers: [],
   providers: [],
 })
 export class AppModule {
-  onfigure(consumer: MiddlewareConsumer) {
+  configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(AuthMiddleware)
       .forRoutes('/demands', '/services', '/clients', 'reports');
