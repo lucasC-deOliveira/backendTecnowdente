@@ -3,11 +3,14 @@ import { EditDemandRepository } from '../../../../../domain/modules/demand/repos
 import { EditDemandRepositoryInput } from '../../../../../domain/modules/demand/repositories/editDemand/adapters/input/EditDemandRepositoryInput';
 import { DemandEntityTypeorm } from '../../../entities/demand/DemandEntityTypeorm';
 import { DemandServiceDetailsEntityTypeorm } from '../../../entities/demand/DemandServiceDetailsEntityTypeorm';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 
+@Injectable()
 export class EditDemandRepositoryTypeorm extends EditDemandRepository {
   constructor(
+    @InjectRepository(DemandEntityTypeorm)
     private readonly demandRepository: Repository<DemandEntityTypeorm>,
-    private readonly demandServiceDetailsRepository: Repository<DemandServiceDetailsEntityTypeorm>,
   ) {
     super();
   }

@@ -9,6 +9,6 @@ export class EditDemandUseCaseInput {
   type: string;
   deadline: string;
   state: string;
-  amount: string;
+  amount: number;
   observations?: string;
 }

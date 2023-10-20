@@ -21,18 +21,26 @@ class EditDemandUseCase {
     state,
     observations,
   }: EditDemandUseCaseInput): Promise<void> {
-    const demand = this.findDemandByIdRepository.run(id);
+    const demand = await this.findDemandByIdRepository.run(id);
 
     if (!demand) {
-      new AppError('Demand does not exists');
+      throw new AppError('Demand does not exists');
     }
-    if (!services) {
+    if (services.length === 0) {
       throw new AppError('At least one service must be provided');
     }
 
     const searchedServices = await this.findServiceByIdsRepository.run(
       services.map((service) => service.id),
     );
+    for (const service of services) {
+      const serviceExists = searchedServices.find(
+        (searched) => searched.id === service.id,
+      );
+      if (!serviceExists) {
+        throw new AppError(`Service does not exist: ${service.id}`);
+      }
+    }
 
     const parsedDeadLine = new Date(deadline);
 
