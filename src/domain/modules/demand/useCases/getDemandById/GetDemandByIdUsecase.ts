@@ -15,6 +15,10 @@ export class GetDemandByIdUseCase extends BaseService {
 
     const demand = await this.findDemandByIdRepository.run(id);
 
+    if (!demand) {
+      throw new AppError('demand not exist');
+    }
+
     const parsedDemands = {
       id: demand.id,
       patient: demand.patient,
