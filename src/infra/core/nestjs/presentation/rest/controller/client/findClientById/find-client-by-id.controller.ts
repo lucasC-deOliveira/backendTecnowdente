@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Logger, Param, Put, Res } from '@nestjs/common';
+import { Controller, Get, Logger, Param, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { BaseController } from 'src/domain/base/baseController/BaseController';
 import { FindClientByIdUseCaseNestjs } from 'src/infra/core/nestjs/modules/client/useCases/findClientById/FindClientByIdUseCase';
@@ -30,7 +30,7 @@ export class FindClientByIdController extends BaseController {
         `Error no controlador: ${FindClientByIdController.name}, Error: ${e.message}`,
       );
 
-      if (e.message.includes('client does not found')) {
+      if (e.message.includes('Client does not found')) {
         return request.status(404).json({
           error: true,
           status: 404,
