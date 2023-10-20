@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ServiceEntityTypeorm } from 'src/database/typeorm/entities/service/service';
 import { ListAllServicesRepositoryTypeorm } from 'src/database/typeorm/repositories/service/listAllServices/listAlllServicesRepositoryTypeorm';
-import { ListAllServicesController } from 'src/infra/presentation/nestjs/rest/controller/service/listServices/list-services.controller';
+import { ListAllServicesController } from 'src/infra/core/nestjs/presentation/rest/controller/service/listServices/list-services.controller';
 import { ListServiceAllUseCaseNestjs } from './listAllServicesUseCaseNestjs';
 
 @Module({

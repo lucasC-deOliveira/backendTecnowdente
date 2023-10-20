@@ -9,16 +9,8 @@ import typeOrmConnectionDataSource from './';
     {
       provide: DataSource,
       useFactory: async () => {
-        await typeOrmConnectionDataSource
-          .initialize()
-          .then(() =>
-            Logger.warn(
-              'conectado ao banco de dados: ' + process.env.DATABASE_DATABASE,
-            ),
-          )
-          .catch((e) =>
-            Logger.error('erro ao conectar ao banco de dados ' + e.message),
-          );
+        typeOrmConnectionDataSource;
+
         return typeOrmConnectionDataSource;
       },
     },

@@ -4,7 +4,7 @@ import { ServiceEntityTypeorm } from 'src/database/typeorm/entities/service/serv
 import { RemoveServiceByIdUseCaseNestjs } from './RemoveServiceByIdUseCaseNestjs';
 import { FindServiceByIdRepositoryTypeorm } from 'src/database/typeorm/repositories/service/findServiceById/FindServiceByIdRepositoryTypeorm';
 import { DesativeServiceByIdRepositoryTypeorm } from 'src/database/typeorm/repositories/service/desativeServiceById/DesativeServiceByIdRepositoryTypeorm';
-import { RemoveServiceByIdController } from 'src/infra/presentation/nestjs/rest/controller/service/removeServiceById/remove-service-by-id.controller';
+import { RemoveServiceByIdController } from 'src/infra/core/nestjs/presentation/rest/controller/service/removeServiceById/remove-service-by-id.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([ServiceEntityTypeorm])],

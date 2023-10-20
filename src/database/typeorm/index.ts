@@ -7,6 +7,7 @@ import { ReportEntityTypeorm } from './entities/report/reportEntityTypeorm';
 import { ClientEntityTypeorm } from './entities/client/ClientEntityTypeorm';
 import { DemandServiceDetailsEntityTypeorm } from './entities/demand/DemandServiceDetailsEntityTypeorm';
 import { UserTokensEntityTypeorm } from './entities/account/userTokensEntityTypeorm';
+import { Logger } from '@nestjs/common';
 
 export const config: DataSourceOptions = {
   type: 'postgres',
@@ -30,10 +31,14 @@ export const config: DataSourceOptions = {
 
 const AppDataSource = new DataSource(config);
 
-// AppDataSource.initialize()
-//   .then(() =>
-//     console.log('conectado ao banco de dados: ', process.env.DATABASE_DATABASE),
-//   )
-//   .catch((e) => console.log('erro ao conectar ao banco de dados', e.message));
+AppDataSource.initialize()
+  .then(() =>
+    Logger.warn(
+      'conectado ao banco de dados: ' + process.env.DATABASE_DATABASE,
+    ),
+  )
+  .catch((e) =>
+    Logger.error('erro ao conectar ao banco de dados ' + e.message),
+  );
 
 export default AppDataSource;

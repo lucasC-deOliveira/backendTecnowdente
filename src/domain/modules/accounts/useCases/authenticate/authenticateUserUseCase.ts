@@ -1,5 +1,4 @@
 import auth from '../../../../../config/auth';
-import { IDateProvider } from '../../../../../infra/shared/providers/dateProvider/IDateProvider';
 import { BaseService } from '../../../../base/baseService/baseService';
 import { AppError } from '../../../../errors/AppError';
 import { compare } from 'bcryptjs';
@@ -9,6 +8,7 @@ import { DeleteTokenByUserIdRepository } from '../../repositories/deleteTokenByU
 import { CreateTokenRepository } from '../../repositories/createToken/CreateTokenRepository';
 import { AuthenticateUserUseCaseInput } from './adapters/input/AuthenticateUserUseCaseInput';
 import { AuthenticateUserUseCaseOutput } from './adapters/output/AuthenticateUserUseCaseOutput';
+import { AddDays } from 'src/domain/shared/providers/date/addDays';
 
 class AuthenticateUserUseCase extends BaseService {
   constructor(
@@ -16,7 +16,7 @@ class AuthenticateUserUseCase extends BaseService {
 
     private readonly deleteTokenByUserIdRepository: DeleteTokenByUserIdRepository,
 
-    private readonly dayjsDateProvider: IDateProvider,
+    private readonly addDays: AddDays,
 
     private readonly createTokenRepository: CreateTokenRepository,
   ) {
@@ -61,7 +61,7 @@ class AuthenticateUserUseCase extends BaseService {
 
     await this.deleteTokenByUserIdRepository.run(user.id);
 
-    const refresh_token_expires_date = this.dayjsDateProvider.addDays(
+    const refresh_token_expires_date = this.addDays.execute(
       expires_refresh_token_days,
     );
 

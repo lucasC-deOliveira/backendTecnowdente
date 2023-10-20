@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto';
-import { UserEntity } from 'src/domain/modules/accounts/entities/userEntity';
+import { UserEntity } from '../../../../domain/modules/accounts/entities/userEntity';
 import {
   Column,
   CreateDateColumn,

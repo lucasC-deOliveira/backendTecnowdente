@@ -6,7 +6,7 @@ import { DemandServiceDetailsEntityTypeorm } from 'src/database/typeorm/entities
 import { FindServicesByIdsRepositoryTypeorm } from 'src/database/typeorm/repositories/service/findServicesByIds/FindServicesByIdsRepositoryTypeorm';
 import { ServiceEntityTypeorm } from 'src/database/typeorm/entities/service/service';
 import { CreateDemandUseCaseNestjs } from './CreateDemandUseCaseNestjs';
-import { CreateDemandController } from 'src/infra/presentation/nestjs/rest/controller/demand/createDemand/createDemand.controller';
+import { CreateDemandController } from 'src/infra/core/nestjs/presentation/rest/controller/demand/createDemand/createDemand.controller';
 
 @Module({
   imports: [

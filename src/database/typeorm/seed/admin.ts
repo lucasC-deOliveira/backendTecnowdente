@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import { hash } from 'bcryptjs';
-import AppDataSource from 'datasource';
-import { UserEntityTypeorm } from 'src/database/typeorm/entities/account/userEntityTypeorm';
+import AppDataSource from '..';
+import { UserEntityTypeorm } from '../entities/account/userEntityTypeorm';
 
 async function create() {
   await AppDataSource.initialize();

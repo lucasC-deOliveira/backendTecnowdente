@@ -18,7 +18,6 @@ export class CreateServiceController extends BaseController {
   ): Promise<Response> {
     const { amount, cost, name } = data;
 
-    console.log(data);
     try {
       await this.createServiceUsecaseNestjs.execute({
         amount,

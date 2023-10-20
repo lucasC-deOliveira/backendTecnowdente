@@ -1,17 +1,19 @@
-import { DayjsDateProvider } from '../../../../../infra/shared/providers/dateProvider/implementations/dateProvider';
+import { StartOfMonth } from 'src/domain/shared/providers/date/startOfMonth';
 import { FindDemandsBetweenTwoReceivementDateRepository } from '../../repositories/findDemandsBetweenTwoReceivementDate/FindDemandsBetweenTwoReceivementDateRepository';
 import { ShowDashboardUseCaseOutput } from './adapters/output/ShowDashboardUseCaseOutput';
+import { AddMonth } from 'src/domain/shared/providers/date/addMonth';
 
 class ShowDashboardUseCase {
   constructor(
-    private dayjsDateProvider: DayjsDateProvider,
+    private readonly startOfMonth: StartOfMonth,
+    private readonly addMonth: AddMonth,
     private readonly findDemandsBetweenTwoReceivementDateRepository: FindDemandsBetweenTwoReceivementDateRepository,
   ) {}
 
   async execute(): Promise<ShowDashboardUseCaseOutput> {
-    const from = this.dayjsDateProvider.startOfMonth();
+    const from = this.startOfMonth.execute();
 
-    const to = this.dayjsDateProvider.addMonth(from);
+    const to = this.addMonth.execute(from);
 
     const demands =
       await this.findDemandsBetweenTwoReceivementDateRepository.run({

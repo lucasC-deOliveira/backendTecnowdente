@@ -1,7 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 import { DemandServiceDetailsEntityTypeorm } from '../demand/DemandServiceDetailsEntityTypeorm';
-import { ServiceEntity } from 'src/domain/modules/service/entities/serviceEntity';
+import { ServiceEntity } from '../../../../domain/modules/service/entities/serviceEntity';
 
 @Entity('services')
 class ServiceEntityTypeorm extends ServiceEntity {

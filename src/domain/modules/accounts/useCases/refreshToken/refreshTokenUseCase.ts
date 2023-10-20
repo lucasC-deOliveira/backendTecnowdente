@@ -6,7 +6,7 @@ import { DeleteTokenByIdRepository } from '../../repositories/deleteTokenById/De
 import { CreateTokenRepository } from '../../repositories/createToken/CreateTokenRepository';
 import { RefreshTokenUseCaseOutput } from './adapters/output/RefreshTokenUseCaseOutput';
 import auth from '../../../../../config/auth';
-import { IDateProvider } from '../../../../../infra/shared/providers/dateProvider/IDateProvider';
+import { AddDays } from 'src/domain/shared/providers/date/addDays';
 
 interface IPayload {
   sub: string;
@@ -15,10 +15,10 @@ interface IPayload {
 
 class RefreshTokenUseCase extends BaseService {
   constructor(
-    private dayjsDateProvider: IDateProvider,
     private readonly findTokenByUserAndRefreshTokenRepository: FindTokenByUserAndRefreshTokenRepository,
     private readonly deleteTokenById: DeleteTokenByIdRepository,
     private readonly createTokenRepository: CreateTokenRepository,
+    private readonly addDays: AddDays,
   ) {
     super();
   }
@@ -38,9 +38,7 @@ class RefreshTokenUseCase extends BaseService {
 
     await this.deleteTokenById.run(userToken.id);
 
-    const expires_date = this.dayjsDateProvider.addDays(
-      auth.expires_refresh_token_days,
-    );
+    const expires_date = this.addDays.execute(auth.expires_refresh_token_days);
 
     const refresh_token = sign({ email }, auth.secret_refresh_token, {
       subject: sub,

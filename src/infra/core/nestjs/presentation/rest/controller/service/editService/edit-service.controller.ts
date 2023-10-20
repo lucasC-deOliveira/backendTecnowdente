@@ -17,8 +17,6 @@ export class EditServiceController extends BaseController {
     @Res() response: Response,
   ): Promise<Response> {
     const { amount, cost, name, id } = data;
-
-    console.log(data);
     try {
       await this.editServiceUseCaseNestjs.execute({
         amount,
