@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { CreateDemandModule } from './useCases/createDemand/createDemand.module';
 
 @Module({
