@@ -3,6 +3,7 @@ import { CreateDemandModule } from './useCases/createDemand/createDemand.module'
 import { ListDemandModule } from './useCases/listDemand/ListDemand.module';
 import { EditDemandModule } from './useCases/editDemand/EditDemand.module';
 import { GetDemandByIdModule } from './useCases/getDemandById/GetDemandById.module';
+import { RemoveDemand } from './useCases/removeDemand/RemoveDemand.module';
 
 @Module({
   imports: [
@@ -10,6 +11,7 @@ import { GetDemandByIdModule } from './useCases/getDemandById/GetDemandById.modu
     ListDemandModule,
     EditDemandModule,
     GetDemandByIdModule,
+    RemoveDemand,
   ],
 })
 export class DemandModule {}

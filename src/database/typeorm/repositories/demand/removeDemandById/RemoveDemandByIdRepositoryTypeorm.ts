@@ -1,9 +1,15 @@
 import { Repository } from 'typeorm';
 import { RemoveDemandByIdRepository } from '../../../../../domain/modules/demand/repositories/removeDemandById/RemoveDemandByIdRepository';
 import { DemandEntityTypeorm } from '../../../entities/demand/DemandEntityTypeorm';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 
+@Injectable()
 export class RemoveDemandByIdRepositoryTypeorm extends RemoveDemandByIdRepository {
-  constructor(private demandRepository: Repository<DemandEntityTypeorm>) {
+  constructor(
+    @InjectRepository(DemandEntityTypeorm)
+    private demandRepository: Repository<DemandEntityTypeorm>,
+  ) {
     super();
   }
 
