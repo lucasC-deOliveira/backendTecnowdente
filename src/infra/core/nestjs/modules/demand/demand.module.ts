@@ -4,6 +4,7 @@ import { ListDemandModule } from './useCases/listDemand/ListDemand.module';
 import { EditDemandModule } from './useCases/editDemand/EditDemand.module';
 import { GetDemandByIdModule } from './useCases/getDemandById/GetDemandById.module';
 import { RemoveDemand } from './useCases/removeDemand/RemoveDemand.module';
+import { ShowDashboardModule } from './useCases/showDashboard/ShowDashboard.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { RemoveDemand } from './useCases/removeDemand/RemoveDemand.module';
     EditDemandModule,
     GetDemandByIdModule,
     RemoveDemand,
+    ShowDashboardModule,
   ],
 })
 export class DemandModule {}
