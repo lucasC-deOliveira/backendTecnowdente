@@ -2,7 +2,7 @@ import { AppError } from '../../../../errors/AppError';
 import { ReportEntity } from '../../entities/reportEntity';
 import { FindReportByIdRepository } from '../../repositories/findReportById/FindReportByIdRepository';
 
-class ListReportByIDUseCase {
+export class ListReportByIdUseCase {
   constructor(private findReportByIdRepository: FindReportByIdRepository) {}
 
   async execute(id: string): Promise<ReportEntity> {
@@ -15,5 +15,3 @@ class ListReportByIDUseCase {
     return report;
   }
 }
-
-export { ListReportByIDUseCase };

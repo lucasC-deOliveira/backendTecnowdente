@@ -1,12 +1,16 @@
 import { In, Repository } from 'typeorm';
 import { MarkReportAsFinishedByIdRepository } from '../../../../../domain/modules/reports/repositories/markReportAsFinisehdById/MarkReportAsFinishedByIdRepository';
-import { ReportEntity } from '../../../../../domain/modules/reports/entities/reportEntity';
 import { DemandEntityTypeorm } from '../../../entities/demand/DemandEntityTypeorm';
 import { ReportEntityTypeorm } from '../../../entities/report/reportEntityTypeorm';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 
+@Injectable()
 export class MarkReportAsFinishedByIdRepositoryTypeorm extends MarkReportAsFinishedByIdRepository {
   constructor(
-    private readonly reportRepository: Repository<ReportEntity>,
+    @InjectRepository(ReportEntityTypeorm)
+    private readonly reportRepository: Repository<ReportEntityTypeorm>,
+    @InjectRepository(DemandEntityTypeorm)
     private readonly demandRepository: Repository<DemandEntityTypeorm>,
   ) {
     super();

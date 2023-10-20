@@ -3,10 +3,15 @@ import { CreateReportRepository } from '../../../../../domain/modules/reports/re
 import { CreateReportRepositoryInput } from '../../../../../domain/modules/reports/useCases/create/adapters/input/CreateReportUseCaseInput';
 import { DemandEntityTypeorm } from '../../../entities/demand/DemandEntityTypeorm';
 import { ReportEntityTypeorm } from '../../../entities/report/reportEntityTypeorm';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 
+@Injectable()
 export class CreateReportRepositoryTypeorm extends CreateReportRepository {
   constructor(
+    @InjectRepository(ReportEntityTypeorm)
     private readonly reportRepository: Repository<ReportEntityTypeorm>,
+    @InjectRepository(DemandEntityTypeorm)
     private readonly demandRepository: Repository<DemandEntityTypeorm>,
   ) {
     super();

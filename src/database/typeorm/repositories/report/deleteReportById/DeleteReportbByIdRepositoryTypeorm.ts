@@ -2,10 +2,15 @@ import { In, Repository } from 'typeorm';
 import { DeleteReportByIdRepository } from '../../../../../domain/modules/reports/repositories/deleteReportById/DeleteReportByIdRepository';
 import { ReportEntityTypeorm } from '../../../entities/report/reportEntityTypeorm';
 import { DemandEntityTypeorm } from '../../../entities/demand/DemandEntityTypeorm';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 
+@Injectable()
 export class DeleteReportByIdRepositoryTypeorm extends DeleteReportByIdRepository {
   constructor(
+    @InjectRepository(ReportEntityTypeorm)
     private readonly reportRepository: Repository<ReportEntityTypeorm>,
+    @InjectRepository(DemandEntityTypeorm)
     private readonly demandRepository: Repository<DemandEntityTypeorm>,
   ) {
     super();

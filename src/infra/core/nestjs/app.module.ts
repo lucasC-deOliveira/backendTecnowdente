@@ -7,6 +7,7 @@ import { ServiceModule } from './modules/service/service.module';
 import { AccountModule } from './modules/account/account.module';
 import { AuthMiddleware } from 'src/infra/middleware/EnsureAuthenticated';
 import { ClientModule } from './modules/client/client.module';
+import { ReportModule } from './modules/report/report.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { ClientModule } from './modules/client/client.module';
     ServiceModule,
     AccountModule,
     ClientModule,
+    ReportModule,
   ],
   controllers: [],
   providers: [],

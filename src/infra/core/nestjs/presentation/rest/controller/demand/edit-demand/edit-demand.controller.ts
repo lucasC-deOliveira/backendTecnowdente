@@ -1,4 +1,4 @@
-import { Body, Controller, Logger, Post, Put, Res } from '@nestjs/common';
+import { Body, Controller, Logger, Put, Res } from '@nestjs/common';
 import { BaseController } from 'src/domain/base/baseController/BaseController';
 import { Response } from 'express';
 import { EditDemandUseCaseNestjs } from 'src/infra/core/nestjs/modules/demand/useCases/editDemand/EditDemandUseCaseNestjs';
@@ -53,7 +53,7 @@ export class EditDemandController extends BaseController {
       );
       if (e.message.includes('At least one service must be provided')) {
         return response.status(400).json({
-          error: false,
+          error: true,
           status: 400,
           message: 'Uma demanda deve ter pelo menos um serviço!',
           data: [],
@@ -61,7 +61,7 @@ export class EditDemandController extends BaseController {
       }
       if (e.message.includes('Demand does not exists')) {
         return response.status(404).json({
-          error: false,
+          error: true,
           status: 404,
           message: 'Demanda não encontrada!',
           data: [],
@@ -70,14 +70,14 @@ export class EditDemandController extends BaseController {
       if (e.message.includes('Service does not exist:')) {
         const serviceName = e.message.split(':')[1].trim();
         return response.status(404).json({
-          error: false,
+          error: true,
           status: 404,
           message: `Serviço ${serviceName} não encontrado!`,
           data: [],
         });
       }
       return response.status(500).json({
-        error: false,
+        error: true,
         status: 500,
         message: 'Erro interno do servidor!',
         data: [],

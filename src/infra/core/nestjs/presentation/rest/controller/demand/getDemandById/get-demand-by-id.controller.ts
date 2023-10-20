@@ -33,14 +33,14 @@ export class GetDemandByIdController extends BaseController {
 
       if (e.message.includes('demand not exist')) {
         return response.status(404).json({
-          error: false,
+          error: true,
           message: 'Demanda não encontrada!',
           data: [],
           status: 404,
         });
       }
       return response.status(500).json({
-        error: false,
+        error: true,
         status: 500,
         message: 'Erro interno do servidor!',
         data: [],

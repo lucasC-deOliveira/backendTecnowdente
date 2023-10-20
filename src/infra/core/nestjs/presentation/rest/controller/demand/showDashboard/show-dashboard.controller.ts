@@ -27,7 +27,7 @@ export class ShowDashboardController extends BaseController {
       );
 
       return response.status(500).json({
-        error: false,
+        error: true,
         status: 500,
         message: 'Erro interno do servidor!',
         data: [],

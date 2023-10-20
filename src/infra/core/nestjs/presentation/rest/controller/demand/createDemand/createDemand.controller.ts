@@ -48,7 +48,7 @@ export class CreateDemandController extends BaseController {
         `Error no controlador ${CreateDemandController.name} error: ${e}`,
       );
       return response.status(500).json({
-        error: false,
+        error: true,
         status: 500,
         message: 'Erro interno do servidor!',
         data: [],
