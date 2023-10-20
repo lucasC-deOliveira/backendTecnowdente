@@ -9,11 +9,11 @@ export class ListAllClientController extends BaseController {
     super();
   }
   @Get('/')
-  async handle(@Res() request: Response): Promise<Response> {
+  async handle(@Res() response: Response): Promise<Response> {
     try {
       const clients = await this.listAllClientUseCaseNestjs.execute();
 
-      return request.status(201).json({
+      return response.status(201).json({
         error: false,
         status: 200,
         message: 'Clientes listados com sucesso!',
@@ -24,7 +24,7 @@ export class ListAllClientController extends BaseController {
         `Error no controlador: ${ListAllClientController.name}, Error: ${e.message}`,
       );
 
-      return request.status(500).json({
+      return response.status(500).json({
         error: true,
         status: 500,
         message: 'Erro interno do servidor!',

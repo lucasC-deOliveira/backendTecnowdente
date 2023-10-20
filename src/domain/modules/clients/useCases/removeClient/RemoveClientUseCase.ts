@@ -14,7 +14,7 @@ class RemoveClientUseCase extends BaseService {
     const clientExists = await this.findClientByIdRepository.run(id);
 
     if (!clientExists) {
-      throw new Error("Client Doesn't not exists");
+      throw new Error('Client not exists');
     }
 
     await this.desativeClientByIdRepository.run(id);
