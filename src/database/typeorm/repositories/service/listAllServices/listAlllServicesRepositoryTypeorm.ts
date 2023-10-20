@@ -14,6 +14,6 @@ export class ListAllServicesRepositoryTypeorm extends ListAllServicesRepository 
     super();
   }
   async run(): Promise<ServiceEntity[]> {
-    return await this.serviceRepository.find();
+    return await this.serviceRepository.find({ where: { active: true } });
   }
 }

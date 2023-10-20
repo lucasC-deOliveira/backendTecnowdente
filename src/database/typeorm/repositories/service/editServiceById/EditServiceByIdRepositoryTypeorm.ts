@@ -2,9 +2,14 @@ import { Repository } from 'typeorm';
 import { EditServiceByIdRepository } from '../../../../../domain/modules/service/repositories/editServiceById/EditServiceByIdRepository';
 import { ServiceEntityTypeorm } from '../../../entities/service/service';
 import { EditServiceByIdRepositoryInput } from '../../../../../domain/modules/service/repositories/editServiceById/adapters/input/EditServiceByIdRepositoryInput';
-
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+@Injectable()
 export class EditServiceByIdRepositoryTypeorm extends EditServiceByIdRepository {
-  constructor(private serviceRepository: Repository<ServiceEntityTypeorm>) {
+  constructor(
+    @InjectRepository(ServiceEntityTypeorm)
+    private serviceRepository: Repository<ServiceEntityTypeorm>,
+  ) {
     super();
   }
 

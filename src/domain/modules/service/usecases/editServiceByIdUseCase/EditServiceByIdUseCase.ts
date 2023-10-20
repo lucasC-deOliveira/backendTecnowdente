@@ -4,7 +4,7 @@ import { EditServiceByIdRepository } from '../../repositories/editServiceById/Ed
 import { FindServiceByIdRepository } from '../../repositories/findById/findServiceByIdRepository';
 import { EditServiceByIdUseCaseInput } from './adapters/input/EditServiceByIdUserCaseInput';
 
-class EditServiceByIdUseCase extends BaseService {
+class EditServiceUseCase extends BaseService {
   constructor(
     private findServiceByIdRepository: FindServiceByIdRepository,
     private editServiceByIdRepository: EditServiceByIdRepository,
@@ -28,4 +28,4 @@ class EditServiceByIdUseCase extends BaseService {
   }
 }
 
-export { EditServiceByIdUseCase };
+export { EditServiceUseCase };
