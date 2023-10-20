@@ -2,7 +2,7 @@ import { Body, Controller, Logger, Post, Res } from '@nestjs/common';
 import { BaseController } from 'src/domain/base/baseController/BaseController';
 import { Response } from 'express';
 import { AuthenticateUserUseCaseNesjts } from 'src/infra/core/nestjs/modules/account/useCases/authenticate/AuthenticateUseCaseNestjs';
-import { AuthenticateUserUseCaseInputClassValidator } from 'src/infra/core/nestjs/pipes/account/AuthenticateUserUseCaseInputClassValidator';
+import { AuthenticateUserUseCaseInputClassValidator } from 'src/infra/core/nestjs/pipes/account/authenticate/AuthenticateUserUseCaseInputClassValidator';
 
 @Controller('/sessions')
 export class AuthenticateController extends BaseController {
