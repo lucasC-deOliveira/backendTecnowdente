@@ -21,9 +21,9 @@ export class AuthMiddleware implements NestMiddleware {
       req.headers['authorization'] || req.headers['Authorization'];
 
     if (!authHeader) {
-      return res.status(400).json({
+      return res.status(401).json({
         error: true,
-        status: 400,
+        status: 401,
         data: [],
         message: 'Token is missing!',
       });
@@ -34,9 +34,9 @@ export class AuthMiddleware implements NestMiddleware {
       : authHeader.split(' ');
 
     if (!token) {
-      return res.status(400).json({
+      return res.status(401).json({
         error: true,
-        status: 400,
+        status: 401,
         data: [],
         message: 'Invalid token!',
       });
@@ -54,9 +54,9 @@ export class AuthMiddleware implements NestMiddleware {
 
       next();
     } catch (error) {
-      return res.status(400).json({
+      return res.status(401).json({
         error: true,
-        status: 400,
+        status: 401,
         data: [],
         message: 'Invalid token!',
       });

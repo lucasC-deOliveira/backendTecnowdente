@@ -3,6 +3,7 @@ import { CreateServiceModule } from './useCases/createService/createService.modu
 import { ListAllServicesModule } from './useCases/listAllService/listAllService.module';
 import { RemoveServicesByIdModule } from './useCases/removeServiceById/removeServiceById.module';
 import { EditServiceModule } from './useCases/editService/EditService.module';
+import { FindServiceByIdModule } from './useCases/findServiceById/findServiceById.module';
 
 @Module({
   imports: [
@@ -10,6 +11,7 @@ import { EditServiceModule } from './useCases/editService/EditService.module';
     ListAllServicesModule,
     RemoveServicesByIdModule,
     EditServiceModule,
+    FindServiceByIdModule,
   ],
 })
 export class ServiceModule {}

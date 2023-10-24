@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { from } from 'rxjs';
 import { DemandEntityTypeorm } from 'src/database/typeorm/entities/demand/DemandEntityTypeorm';
 import { DemandEntity } from 'src/domain/modules/demand/entities/DemandEntity';
 import { FindDemandsBetweenTwoReceivementDateRepository } from 'src/domain/modules/demand/repositories/findDemandsBetweenTwoReceivementDate/FindDemandsBetweenTwoReceivementDateRepository';
@@ -21,7 +22,8 @@ export class FindDemandsBetweenTwoReceivementDateRepositoryTypeorm extends FindD
     DemandEntity[]
   > {
     return await this.demandRepository.find({
-      where: { receivement: Between(to, from) },
+      where: { receivement: Between(from, to) },
+      relations: ['services'],
     });
   }
 }
