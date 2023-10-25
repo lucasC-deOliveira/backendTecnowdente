@@ -1,6 +1,6 @@
-import { Controller, Get, Logger, Param, Res } from '@nestjs/common';
+import { Controller, Get, Logger, Param, Query, Res } from '@nestjs/common';
 import { BaseController } from 'src/domain/base/baseController/BaseController';
-import { Response } from 'express';
+import { Response, query } from 'express';
 import { ListDemandUseCaseInputClassValidator } from 'src/infra/core/nestjs/pipes/demands/list/ListDemandUseCaseInputClassValidator';
 import { ListDemandUseCaseNestjs } from 'src/infra/core/nestjs/modules/demand/useCases/listDemand/ListDemandUseCaseNestjs';
 
@@ -13,13 +13,35 @@ export class ListDemandController extends BaseController {
   }
   @Get('/')
   async handle(
-    @Param() param: ListDemandUseCaseInputClassValidator,
+    @Query() query: ListDemandUseCaseInputClassValidator,
     @Res() response: Response,
   ): Promise<Response> {
-    const { page } = param;
+    const {
+      client_id,
+      patient,
+      deadline,
+      receivement,
+      type,
+      states,
+      from,
+      to,
+      page,
+      is_report_null,
+    } = query;
 
     try {
-      const demands = await this.listDemandUseCaseNestjs.execute(page);
+      const demands = await this.listDemandUseCaseNestjs.execute({
+        from,
+        states,
+        to,
+        type,
+        client_id,
+        deadline,
+        page,
+        patient,
+        receivement,
+        is_report_null,
+      });
 
       return response.status(200).json({
         error: false,

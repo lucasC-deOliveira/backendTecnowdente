@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { MarkReportAsFinishedByIdUseCaseNestjs } from 'src/infra/core/nestjs/modules/report/useCases/mardReportAsFinishedById/MarkReportAsFinishedByIdUseCaseNestjs';
 import { MarkReportAsFinishedByIdUseCaseClassValidator } from 'src/infra/core/nestjs/pipes/report/MarkReportAsFinishedById/MarkReportAsFinishedByIdUseCaseInputClassValidator';
 
-@Controller('/reports/finish')
+@Controller('/reports')
 export class MarkAsFinishedController extends BaseController {
   constructor(
     private readonly markReportAsFinishedByIdUseCaseNestjs: MarkReportAsFinishedByIdUseCaseNestjs,

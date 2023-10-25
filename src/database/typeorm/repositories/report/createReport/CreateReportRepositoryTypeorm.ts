@@ -18,8 +18,9 @@ export class CreateReportRepositoryTypeorm extends CreateReportRepository {
   }
   async run({
     client_id,
-    from,
     to,
+    from,
+    demands,
   }: CreateReportRepositoryInput): Promise<void> {
     const manager = this.reportRepository.manager;
     await manager.transaction(async (transactionalEntityManager) => {
@@ -30,22 +31,11 @@ export class CreateReportRepositoryTypeorm extends CreateReportRepository {
         status: 'PENDENTE',
       });
 
-      const demands = await this.demandRepository.find({
-        where: {
-          client_id,
-          state: 'Entregue',
-          receivement: Between(new Date(from), new Date(to)),
-          report_id: null,
-        },
-      });
-
-      const demands_ids = demands.map((demand) => demand.id);
-
       await transactionalEntityManager.save(report);
-
+      console.log(demands);
       await transactionalEntityManager.update(
         DemandEntityTypeorm,
-        { id: In(demands_ids) },
+        { id: In(demands) },
         { report_id: report.id },
       );
     });

@@ -1,4 +1,11 @@
-import { IsDateString, IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import {
+  IsArray,
+  IsDateString,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUUID,
+} from 'class-validator';
 import { CreateReportUseCaseInput } from 'src/domain/modules/reports/repositories/createReport/adapters/input/CreateReportRepositoryInput';
 
 export class CreateReportUseCaseInputClassValidator extends CreateReportUseCaseInput {
@@ -14,4 +21,9 @@ export class CreateReportUseCaseInputClassValidator extends CreateReportUseCaseI
   @IsNotEmpty()
   @IsUUID()
   client_id: string;
+
+  @IsArray()
+  @IsString({ each: true })
+  @IsOptional()
+  demads: string[];
 }

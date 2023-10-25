@@ -16,13 +16,14 @@ export class CreateReportController extends BaseController {
     @Body() data: CreateReportUseCaseInputClassValidator,
     @Res() response: Response,
   ): Promise<Response> {
-    const { client_id, from, to } = data;
+    const { client_id, from, to, demands } = data;
 
     try {
       await this.createReportUseCaseNestjs.execute({
         client_id,
         from,
         to,
+        demands,
       });
 
       return response.status(200).json({
