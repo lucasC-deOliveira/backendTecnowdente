@@ -10,7 +10,6 @@ import {
 import { ListDemandUseCaseInput } from 'src/domain/modules/demand/useCases/ListDemands/adapters/input/ListDemadUseCaseInput';
 
 export class ListDemandUseCaseInputClassValidator extends ListDemandUseCaseInput {
-  @IsNumber()
   @IsOptional()
   page?: number;
 
