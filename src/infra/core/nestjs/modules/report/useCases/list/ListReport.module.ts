@@ -5,12 +5,17 @@ import { ReportEntityTypeorm } from 'src/database/typeorm/entities/report/report
 import { ListReportUseCaseNestjs } from './ListReportUseCaseNestjs';
 import { ListReportRepositoryTypeorm } from 'src/database/typeorm/repositories/report/listReport/ListReportRepositoryTypeorm';
 import { ListAllReportController } from 'src/infra/core/nestjs/presentation/rest/controller/report/listAll/list-all-report.controller';
+import { CountReportsRepositoryTypeorm } from 'src/database/typeorm/repositories/report/countReport/CountReportsRepositoryTypeorm';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([ReportEntityTypeorm, DemandEntityTypeorm]),
   ],
-  providers: [ListReportUseCaseNestjs, ListReportRepositoryTypeorm],
+  providers: [
+    ListReportUseCaseNestjs,
+    ListReportRepositoryTypeorm,
+    CountReportsRepositoryTypeorm,
+  ],
   controllers: [ListAllReportController],
 })
 export class ListReportModule {}

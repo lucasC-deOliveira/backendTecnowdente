@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { FindManyOptions, Repository } from 'typeorm';
 import { ListReportRepository } from '../../../../../domain/modules/reports/repositories/listReport/ListReportRepository';
 import { ReportEntityTypeorm } from '../../../entities/report/reportEntityTypeorm';
 import { ReportEntity } from '../../../../../domain/modules/reports/entities/reportEntity';
@@ -13,7 +13,17 @@ export class ListReportRepositoryTypeorm extends ListReportRepository {
   ) {
     super();
   }
-  async run(): Promise<ReportEntity[]> {
-    return await this.reportRepository.find({ relations: ['client'] });
+  async run(page?: number): Promise<ReportEntity[]> {
+    const limit = 5;
+
+    const offset = limit * page - limit;
+
+    const findOptions: FindManyOptions = { relations: ['client'] };
+
+    if (page) {
+      findOptions.skip = offset > 1 ? offset : 0;
+      findOptions.take = limit;
+    }
+    return await this.reportRepository.find(findOptions);
   }
 }
