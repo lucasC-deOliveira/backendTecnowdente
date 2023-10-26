@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { FindManyOptions, Repository } from 'typeorm';
 import { ListAllClientsRepository } from '../../../../../domain/modules/clients/repositories/listAllClients/ListAllClientsRepository';
 import { ClientEntityTypeorm } from '../../../entities/client/ClientEntityTypeorm';
 import { ClientEntity } from '../../../../../domain/modules/clients/entities/ClientEntity';
@@ -13,7 +13,16 @@ export class ListAllClientsRepositoryTypeorm extends ListAllClientsRepository {
   ) {
     super();
   }
-  async run(): Promise<ClientEntity[]> {
-    return await this.clientRepository.find();
+  async run(page): Promise<ClientEntity[]> {
+    const limit = 5;
+
+    const offset = limit * page - limit;
+
+    const findOptions: FindManyOptions = {};
+
+    if (page) {
+      (findOptions.skip = offset > 1 ? offset : 0), (findOptions.take = limit);
+    }
+    return await this.clientRepository.find(findOptions);
   }
 }

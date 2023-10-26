@@ -1,7 +1,8 @@
-import { Controller, Get, Logger, Param, Res } from '@nestjs/common';
+import { Controller, Get, Logger, Param, Query, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { BaseController } from 'src/domain/base/baseController/BaseController';
 import { ListAllClientUseCaseNestjs } from 'src/infra/core/nestjs/modules/client/useCases/listAllClient/ListAllClientUseCaseNestjs';
+import { ListAllClientsUseCaseInpuClassValidator } from 'src/infra/core/nestjs/pipes/client/listAll/ListAllClientsUseCaseInputClassValidator';
 
 @Controller('/clients')
 export class ListAllClientController extends BaseController {
@@ -9,9 +10,14 @@ export class ListAllClientController extends BaseController {
     super();
   }
   @Get('/')
-  async handle(@Res() response: Response): Promise<Response> {
+  async handle(
+    @Res() response: Response,
+    @Query() query: ListAllClientsUseCaseInpuClassValidator,
+  ): Promise<Response> {
     try {
-      const clients = await this.listAllClientUseCaseNestjs.execute();
+      const { page } = query;
+
+      const clients = await this.listAllClientUseCaseNestjs.execute(page);
 
       return response.status(201).json({
         error: false,

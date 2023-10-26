@@ -3,7 +3,7 @@ import { ErrorNotImplementedYet } from '../../../../errors/NotImplementYet/Error
 import { ClientEntity } from '../../entities/ClientEntity';
 
 export class ListAllClientsRepository implements BaseRepository {
-  async run(): Promise<ClientEntity[]> {
+  async run(page?: number): Promise<ClientEntity[]> {
     throw new ErrorNotImplementedYet();
   }
 }

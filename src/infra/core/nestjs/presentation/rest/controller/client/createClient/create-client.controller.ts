@@ -28,6 +28,14 @@ export class CreateClientController extends BaseController {
         `Error no controlador: ${CreateClientController.name}, Error: ${e.message}`,
       );
 
+      if (e.message.includes('Client already exists!')) {
+        return request.status(400).json({
+          error: true,
+          status: 404,
+          message: 'Client already exists!',
+          data: [],
+        });
+      }
       return request.status(500).json({
         error: true,
         status: 500,

@@ -4,10 +4,15 @@ import { ClientEntityTypeorm } from 'src/database/typeorm/entities/client/Client
 import { ListAllClientUseCaseNestjs } from './ListAllClientUseCaseNestjs';
 import { ListAllClientsRepositoryTypeorm } from 'src/database/typeorm/repositories/client/listAllClients/ListAllClientsRepositoryTypeorm';
 import { ListAllClientController } from 'src/infra/core/nestjs/presentation/rest/controller/client/listAllClient/list-all-client.controller';
+import { CountClientsRepositoryTypeorm } from 'src/database/typeorm/repositories/client/countAllClients/CountClientsRepositoryTypeorm';
 
 @Module({
   imports: [TypeOrmModule.forFeature([ClientEntityTypeorm])],
-  providers: [ListAllClientUseCaseNestjs, ListAllClientsRepositoryTypeorm],
+  providers: [
+    ListAllClientUseCaseNestjs,
+    ListAllClientsRepositoryTypeorm,
+    CountClientsRepositoryTypeorm,
+  ],
   controllers: [ListAllClientController],
 })
 export class ListAllClientModule {}
