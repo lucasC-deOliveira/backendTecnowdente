@@ -9,6 +9,7 @@
     "test": "jest",
     "build:tsc": "tsc --build",
     "typeorm:migration:run": "npm run typeorm migration:run -- -d ./datasource.ts",
+    "typeorm:migration:revert": "npm run typeorm migration:revert -- -d ./datasource.ts",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",

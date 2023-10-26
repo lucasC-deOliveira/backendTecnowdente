@@ -15,6 +15,6 @@ export class FindServiceByIdRepositoryTypeorm extends FindServiceByIdRepository 
   }
 
   async run(id: string): Promise<ServiceEntity> {
-    return await this.serviceRepository.findOneBy({ id });
+    return await this.serviceRepository.findOneBy({ id, active: true });
   }
 }

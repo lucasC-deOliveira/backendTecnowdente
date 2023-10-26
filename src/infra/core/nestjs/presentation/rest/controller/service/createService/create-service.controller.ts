@@ -35,6 +35,14 @@ export class CreateServiceController extends BaseController {
       Logger.error(
         `Error no controlador ${CreateServiceController.name} error: ${e}`,
       );
+      if (e.message.includes('service Already Exists')) {
+        return response.status(400).json({
+          error: false,
+          status: 400,
+          data: [],
+          message: 'service already exists!',
+        });
+      }
       return response.status(500).json({
         error: false,
         status: 500,

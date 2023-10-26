@@ -1,7 +1,8 @@
-import { Controller, Get, Logger, Res } from '@nestjs/common';
+import { Controller, Get, Logger, Query, Res } from '@nestjs/common';
 import { BaseController } from 'src/domain/base/baseController/BaseController';
 import { Response } from 'express';
 import { ListServiceAllUseCaseNestjs } from 'src/infra/core/nestjs/modules/service/useCases/listAllService/listAllServicesUseCaseNestjs';
+import { ListServiceAllUseCaseInputClassValidator } from 'src/infra/core/nestjs/pipes/service/listAll/ListServiceAllUseCaseInputClassValidator';
 
 @Controller('/services')
 export class ListAllServicesController extends BaseController {
@@ -11,9 +12,14 @@ export class ListAllServicesController extends BaseController {
     super();
   }
   @Get('/')
-  async handle(@Res() response: Response): Promise<Response> {
+  async handle(
+    @Res() response: Response,
+    @Query() query: ListServiceAllUseCaseInputClassValidator,
+  ): Promise<Response> {
     try {
-      const services = await this.listServiceAllUseCaseNestjs.execute();
+      const { page } = query;
+
+      const services = await this.listServiceAllUseCaseNestjs.execute(page);
 
       return response.status(200).json({
         error: false,
@@ -25,6 +31,7 @@ export class ListAllServicesController extends BaseController {
       Logger.error(
         `Error no controlador ${ListAllServicesController.name} error: ${e}`,
       );
+
       return response.status(500).json({
         error: false,
         status: 500,
