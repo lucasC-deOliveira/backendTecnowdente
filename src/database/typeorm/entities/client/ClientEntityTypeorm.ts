@@ -26,6 +26,9 @@ export class ClientEntityTypeorm extends ClientEntity {
   @OneToMany(() => DemandEntityTypeorm, (demand) => demand.client_id)
   demands: DemandEntityTypeorm[];
 
+  @Column()
+  active?: boolean;
+
   constructor() {
     super();
     if (!this.id) {

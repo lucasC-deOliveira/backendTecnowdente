@@ -17,12 +17,11 @@ class CreateClientUseCase extends BaseService {
       name,
       cnpj,
     };
-    console.log('chegou');
-    const clientExists = await this.findClientByCnpjRepository.run(cnpj);
+    // const clientExists = await this.findClientByCnpjRepository.run(cnpj);
 
-    if (clientExists) {
-      throw new Error('Client already exists!');
-    }
+    // if (clientExists) {
+    //   throw new Error('Client already exists!');
+    // }
 
     await this.createClientRepository.run(client);
   }

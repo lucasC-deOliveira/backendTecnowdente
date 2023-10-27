@@ -14,7 +14,10 @@ export class FindClientByCnpjRepositoryTypeorm extends FindClientByCnpjRepositor
     super();
   }
   async run(cnpj: string): Promise<ClientEntity> {
-    const client = await this.clientRepository.findOneBy({ cnpj });
+    const client = await this.clientRepository.findOneBy({
+      cnpj,
+      active: true,
+    });
 
     return client;
   }

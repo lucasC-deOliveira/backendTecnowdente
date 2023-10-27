@@ -14,6 +14,6 @@ export class FindClientByIdRepositoryTypeorm extends FindClientByIdRepository {
     super();
   }
   async run(id: string): Promise<ClientEntity> {
-    return await this.clientRepository.findOneBy({ id });
+    return await this.clientRepository.findOneBy({ id, active: true });
   }
 }

@@ -18,7 +18,11 @@ export class ListAllClientsRepositoryTypeorm extends ListAllClientsRepository {
 
     const offset = limit * page - limit;
 
-    const findOptions: FindManyOptions = {};
+    const findOptions: FindManyOptions = {
+      where: {
+        active: true,
+      },
+    };
 
     if (page) {
       (findOptions.skip = offset > 1 ? offset : 0), (findOptions.take = limit);

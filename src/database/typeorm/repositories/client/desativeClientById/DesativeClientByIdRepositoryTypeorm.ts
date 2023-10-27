@@ -13,6 +13,6 @@ export class DesativeClientByIdRepositoryTypeorm extends DesativeClientByIdRepos
     super();
   }
   async run(id: string): Promise<void> {
-    await this.clientRepository.delete(id);
+    await this.clientRepository.update(id, { active: false });
   }
 }
