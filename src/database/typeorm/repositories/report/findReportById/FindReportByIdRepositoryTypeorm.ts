@@ -26,7 +26,7 @@ export class FindReportByIdRepositoryTypeorm extends FindReportByIdRepository {
 
     if (report) {
       demands = await this.demandRepository.find({
-        relations: ['services'],
+        relations: ['client', 'services', 'servicesDetails'],
         where: {
           report_id: id,
         },
