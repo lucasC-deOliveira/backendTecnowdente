@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "typeorm": "typeorm-ts-node-esm",
-    "seed:admin": "node dist/src/database/typeorm/seed/admin.js",
+    "seed:admin": "nest dist/src/database/typeorm/seed/admin.js",
     "test": "jest",
     "build:tsc": "tsc --build",
     "typeorm:migration:run": "npm run typeorm migration:run -- -d ./datasource.ts",

@@ -1,10 +1,9 @@
 import { v4 as uuid } from 'uuid';
 import { hash } from 'bcryptjs';
-import AppDataSource from '..';
 import { UserEntityTypeorm } from '../entities/account/userEntityTypeorm';
+import { DataSource } from 'typeorm';
 
-async function create() {
-  await AppDataSource.initialize();
+export async function create(AppDataSource: DataSource) {
   const repository = AppDataSource.getRepository(UserEntityTypeorm);
 
   const userAdminExists = await repository.findOneBy({ isAdmin: true });
@@ -28,6 +27,6 @@ async function create() {
   }
 }
 
-create()
-  .then(() => console.log('seed admin executada!'))
-  .catch((e) => console.log('erro ao executar a seed:admin: ' + e.message));
+// create()
+//   .then(() => console.log('seed admin executada!'))
+//   .catch((e) => console.log('erro ao executar a seed:admin: ' + e.message));

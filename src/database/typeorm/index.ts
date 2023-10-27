@@ -8,6 +8,7 @@ import { ClientEntityTypeorm } from './entities/client/ClientEntityTypeorm';
 import { DemandServiceDetailsEntityTypeorm } from './entities/demand/DemandServiceDetailsEntityTypeorm';
 import { UserTokensEntityTypeorm } from './entities/account/userTokensEntityTypeorm';
 import { Logger } from '@nestjs/common';
+import { create } from './seed/admin';
 
 export const config: DataSourceOptions = {
   type: 'postgres',
@@ -32,11 +33,14 @@ export const config: DataSourceOptions = {
 const AppDataSource = new DataSource(config);
 
 AppDataSource.initialize()
-  .then(() =>
+  .then(() => {
     Logger.warn(
       'conectado ao banco de dados: ' + process.env.DATABASE_DATABASE,
-    ),
-  )
+    );
+    create(AppDataSource)
+      .then(() => console.log('seed admin executada!'))
+      .catch((e) => console.log('erro ao executar a seed:admin: ' + e.message));
+  })
   .catch((e) =>
     Logger.error('erro ao conectar ao banco de dados ' + e.message),
   );
