@@ -14,6 +14,6 @@ export class CountClientsRepositoryTypeorm extends CountClientsRepository {
   }
 
   async run(): Promise<number> {
-    return this.clientRepository.count();
+    return this.clientRepository.count({ where: { active: true } });
   }
 }
