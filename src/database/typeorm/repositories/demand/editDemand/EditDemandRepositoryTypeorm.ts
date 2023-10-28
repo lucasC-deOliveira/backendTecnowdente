@@ -52,6 +52,7 @@ export class EditDemandRepositoryTypeorm extends EditDemandRepository {
         cost,
         type,
         receivement: demand.receivement,
+        report_id: demand.report_id,
       });
 
       const servicesDetails = services.map((service) =>
