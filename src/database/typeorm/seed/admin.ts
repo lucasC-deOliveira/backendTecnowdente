@@ -25,6 +25,15 @@ export async function create(AppDataSource: DataSource) {
 
     await repository.save(newUserAdmin);
   }
+  if (userAdminExists) {
+    const password = await hash(process.env.PASSWORD, 10);
+
+    await repository.update(userAdminExists.id, {
+      ...userAdminExists,
+      password,
+      email: String(process.env.USER_EMAIL),
+    });
+  }
 }
 
 // create()
