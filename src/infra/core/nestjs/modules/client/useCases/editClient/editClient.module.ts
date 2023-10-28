@@ -5,6 +5,7 @@ import { EditClientUseCaseNestjs } from './EditClientUseCaseNestjs';
 import { EditClientRepositoryTypeorm } from 'src/database/typeorm/repositories/client/editClient/EditClientRepositoryTypeorm';
 import { FindClientByIdRepositoryTypeorm } from 'src/database/typeorm/repositories/client/findClientById/FindClientByIdRepositoryTypeorm';
 import { EditClientController } from 'src/infra/core/nestjs/presentation/rest/controller/client/edit/edit-client.controller';
+import { FindClientByCnpjRepositoryTypeorm } from 'src/database/typeorm/repositories/client/findClientByCnpj/FindClientByCnpjRepositoryTypeorm';
 
 @Module({
   imports: [TypeOrmModule.forFeature([ClientEntityTypeorm])],
@@ -12,6 +13,7 @@ import { EditClientController } from 'src/infra/core/nestjs/presentation/rest/co
     EditClientUseCaseNestjs,
     EditClientRepositoryTypeorm,
     FindClientByIdRepositoryTypeorm,
+    FindClientByCnpjRepositoryTypeorm,
   ],
   controllers: [EditClientController],
 })

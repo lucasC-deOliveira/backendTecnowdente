@@ -36,6 +36,14 @@ export class EditClientController extends BaseController {
           data: [],
         });
       }
+      if (e.message.includes('Client already exists!')) {
+        return request.status(400).json({
+          error: true,
+          status: 404,
+          message: 'Client already cnpj exists!',
+          data: [],
+        });
+      }
 
       return request.status(500).json({
         error: true,
